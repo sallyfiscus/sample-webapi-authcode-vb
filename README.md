@@ -28,4 +28,4 @@ Modify the following fields in the App.config with your appropriate values:
 * Build and Run
 
 ## Troubleshooting
-If there are any problems, open an [issue](sample-webapi-authcode-vb/issues) and we'll take a look! You can also give us feedback by e-mailing webapi@tradestation.com
+If there are any problems, open an [issue](sample-webapi-authcode-vb/issues) and we'll take a look! You can also give us feedback by e-mailing webapi@tradestation.com.
