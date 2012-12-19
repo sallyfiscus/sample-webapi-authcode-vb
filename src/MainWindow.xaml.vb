@@ -1,12 +1,14 @@
 ﻿Imports System.Web
 Imports System.Net.Http
-Imports System.Net.Http.Formatting
 Imports Newtonsoft.Json
+Imports System.ComponentModel
+Imports System.Windows.Threading
 
 
 Class MainWindow
 
     Private _apiUrl As String
+    Private WithEvents _worker As BackgroundWorker
 
     Public Sub New()
 
@@ -20,6 +22,9 @@ Class MainWindow
 
         browser.Source = New Uri(_apiUrl & "/authorize?client_id=" & My.Settings.APIKey & "&response_type=code&redirect_uri=" & My.Settings.RedirectUri)
 
+        _worker = New BackgroundWorker
+        _worker.RunWorkerAsync()
+
     End Sub
 
     Private Sub browser_Navigated(sender As Object, e As NavigationEventArgs) Handles browser.Navigated
@@ -30,15 +35,20 @@ Class MainWindow
 
                 Dim authCode = query("code")
 
-                ' Exchange authcode with access token
-                ExchangeTokenFromAuthCode(authCode)
+                ' Run Async process
+                _worker.RunWorkerAsync(authCode)
 
             End If
         End If
 
     End Sub
 
-    Async Sub ExchangeTokenFromAuthCode(authCode As String)
+    Private Sub _worker_DoWork(sender As Object, e As DoWorkEventArgs) Handles _worker.DoWork
+        ' Exchange authcode with access token
+        ExchangeTokenFromAuthCode(e.Argument.ToString)
+    End Sub
+
+    Private Sub ExchangeTokenFromAuthCode(authCode As String)
 
         Dim authRequest = New FormUrlEncodedContent({
                                              New KeyValuePair(Of String, String)("grant_type", "authorization_code"),
@@ -49,10 +59,11 @@ Class MainWindow
                                          })
 
         Using client As New HttpClient
-            Dim response = Await client.PostAsync(_apiUrl & "/security/authorize", authRequest)
+            Dim response = client.PostAsync(_apiUrl & "/security/authorize", authRequest).Result
             response.EnsureSuccessStatusCode()
             Dim token = JsonConvert.DeserializeObject(Of AccessToken)(response.Content.ReadAsStringAsync.Result)
-            _browser.NavigateToString(<html><body>token = <%= token.access_token %></body></html>.ToString)
+            Dispatcher.Invoke(DispatcherPriority.Normal,
+                              New Action(Sub() browser.NavigateToString(<html><body>token = <%= token.access_token %></body></html>.ToString)))
         End Using
 
     End Sub

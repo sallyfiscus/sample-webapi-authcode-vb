@@ -53,57 +53,57 @@ Partial Friend NotInheritable Class MySettings
         End Get
     End Property
     
-    <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.Configuration.DefaultSettingValueAttribute("your key goes here")> _
-    Public ReadOnly Property APIKey() As String
-        Get
-            Return CType(Me("APIKey"), String)
-        End Get
-    End Property
-
-    <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.Configuration.DefaultSettingValueAttribute("your secret goes here")> _
-    Public ReadOnly Property APISecret() As String
-        Get
-            Return CType(Me("APISecret"), String)
-        End Get
-    End Property
-
-    <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.Configuration.DefaultSettingValueAttribute("http://www.tradestation.com")> _
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("http://www.tradestation.com")>  _
     Public ReadOnly Property RedirectUri() As String
         Get
-            Return CType(Me("RedirectUri"), String)
+            Return CType(Me("RedirectUri"),String)
         End Get
     End Property
-
-    <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.Configuration.DefaultSettingValueAttribute("https://sim.api.tradestation.com/v2")> _
+    
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("https://sim.api.tradestation.com/v2")>  _
     Public ReadOnly Property SIMAPIBaseUrl() As String
         Get
-            Return CType(Me("SIMAPIBaseUrl"), String)
+            Return CType(Me("SIMAPIBaseUrl"),String)
         End Get
     End Property
-
-    <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.Configuration.DefaultSettingValueAttribute("https://api.tradestation.com/v2")> _
+    
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("https://api.tradestation.com/v2")>  _
     Public ReadOnly Property PRODAPIBaseUrl() As String
         Get
-            Return CType(Me("PRODAPIBaseUrl"), String)
+            Return CType(Me("PRODAPIBaseUrl"),String)
         End Get
     End Property
-
-    <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.Configuration.DefaultSettingValueAttribute("SIM")> _
+    
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("SIM")>  _
     Public ReadOnly Property Environment() As String
         Get
-            Return CType(Me("Environment"), String)
+            Return CType(Me("Environment"),String)
+        End Get
+    End Property
+    
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("your key goes here")>  _
+    Public ReadOnly Property APIKey() As String
+        Get
+            Return CType(Me("APIKey"),String)
+        End Get
+    End Property
+    
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("your secret goes here")>  _
+    Public ReadOnly Property APISecret() As String
+        Get
+            Return CType(Me("APISecret"),String)
         End Get
     End Property
 End Class
