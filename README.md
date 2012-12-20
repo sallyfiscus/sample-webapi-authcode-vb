@@ -1,6 +1,6 @@
 # sample-webapi-authcode-vb
 
-This sample application uses VB.NET (this assumes Visual Studio 2012 and .NET 4.5) to authenticate with the TradeStation API via an OAuth 2 Authorizatin Code Grant Type. The user will be directed to TradeStation's login page to capture credentails. After a successful login, an auth code is return and is then exchanged for an access token which will be used for subsequent WebAPI calls.
+This sample application uses VB.NET (this assumes Visual Studio 2012 and .NET 4.5, [go here for VS2010/.NET4.0](/tradestation/sample-webapi-authcode-vb/tree/dotNET4)) to authenticate with the TradeStation API via an OAuth 2 Authorizatin Code Grant Type. The user will be directed to TradeStation's login page to capture credentails. After a successful login, an auth code is return and is then exchanged for an access token which will be used for subsequent WebAPI calls.
 
 ## Configuration
 Modify the following fields in the App.config with your appropriate values:
