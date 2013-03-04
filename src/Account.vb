@@ -1,0 +1,39 @@
+﻿Public Class Account
+    Public Property __type As String
+    Public Property _Alias As String
+    Public Property BODEquity As Decimal
+    Public Property BODNetCash As Decimal
+    Public Property ClosedPositions As List(Of TodayClosedPositions)
+    Public Property DisplayName As String
+    Public Property Key As Integer
+    Public Property MarketValue As Integer
+    Public Property Name As String
+    Public Property RealTimeAccountBalance As Decimal
+    Public Property RealTimeBuyingPower As Decimal
+    Public Property RealTimeEquity As Decimal
+    Public Property RealTimeRealizedProfitLoss As Decimal
+    Public Property RealTimeUnrealizedGains As Decimal
+    Public Property RealTimeUnrealizedProfitLoss As Integer
+    Public Property Status As String
+    Public Property StatusDescription As String
+    Public Property Type As String
+    Public Property TypeDescription As String
+    Public Property UnclearedDeposit As Decimal
+    Public Property BODAccountBalance As Decimal
+    Public Property BODDayTradingMarginableEquitiesBuyingPower As Decimal
+    Public Property BODOptionBuyingPower As Decimal
+    Public Property BODOptionValue As Decimal
+    Public Property BODOvernightBuyingPower As Decimal
+    Public Property CanDayTrade As Boolean
+    Public Property Commission As Integer
+    Public Property DayTrades As Integer
+    Public Property DayTradingQualified As Boolean
+    Public Property OptionApprovalLevel As Integer
+    Public Property PatternDayTrader As Boolean
+    Public Property RealTimeCostOfPositions As Decimal
+    Public Property RealTimeDayTradingMarginableEquitiesBuyingPower As Decimal
+    Public Property RealTimeOptionBuyingPower As Decimal
+    Public Property RealTimeOptionValue As Decimal
+    Public Property RealTimeOvernightBuyingPower As Decimal
+    Public Property UnsettledFund As Decimal
+End Class

@@ -14,15 +14,15 @@ Class MainWindow
 
         If My.Settings.Environment.Equals("SIM") Then
             _apiUrl = My.Settings.SIMAPIBaseUrl
-        ElseIf My.Settings.Environment.Equals("PROD") Then
-            _apiUrl = My.Settings.PRODAPIBaseUrl
+        ElseIf My.Settings.Environment.Equals("LIVE") Then
+            _apiUrl = My.Settings.LIVEAPIBaseUrl
         End If
 
         browser.Source = New Uri(_apiUrl & "/authorize?client_id=" & My.Settings.APIKey & "&response_type=code&redirect_uri=" & My.Settings.RedirectUri)
 
     End Sub
 
-    Private Sub browser_Navigated(sender As Object, e As NavigationEventArgs) Handles browser.Navigated
+    Async Sub browser_Navigated(sender As Object, e As NavigationEventArgs) Handles browser.Navigated
 
         If e.Uri IsNot Nothing Then
             Dim query = HttpUtility.ParseQueryString(e.Uri.Query)
@@ -31,14 +31,19 @@ Class MainWindow
                 Dim authCode = query("code")
 
                 ' Exchange authcode with access token
-                ExchangeTokenFromAuthCode(authCode)
+                Dim accessToken = Await ExchangeTokenFromAuthCode(authCode)
 
+                ' Get Account Balances
+                Dim accounts = Await GetAccountsInfo(accessToken)
+                Dim balances = Await GetBalances(accounts.First.Key, accessToken)
+
+                _browser.NavigateToString(<html><body><p>token = <%= accessToken.access_token %></p><p>account = <%= balances.First.Key %></p></body></html>.ToString)
             End If
         End If
 
     End Sub
 
-    Async Sub ExchangeTokenFromAuthCode(authCode As String)
+    Async Function ExchangeTokenFromAuthCode(authCode As String) As Task(Of AccessToken)
 
         Dim authRequest = New FormUrlEncodedContent({
                                              New KeyValuePair(Of String, String)("grant_type", "authorization_code"),
@@ -51,10 +56,39 @@ Class MainWindow
         Using client As New HttpClient
             Dim response = Await client.PostAsync(_apiUrl & "/security/authorize", authRequest)
             response.EnsureSuccessStatusCode()
-            Dim token = JsonConvert.DeserializeObject(Of AccessToken)(response.Content.ReadAsStringAsync.Result)
-            _browser.NavigateToString(<html><body>token = <%= token.access_token %></body></html>.ToString)
+            Return JsonConvert.DeserializeObject(Of AccessToken)(response.Content.ReadAsStringAsync.Result)
         End Using
 
-    End Sub
+    End Function
+
+    Async Function GetBalances(accountNumber As Integer, accessToken As AccessToken) As Task(Of List(Of Account))
+        Using client As New HttpClient
+            Dim request = New HttpRequestMessage With
+                          {
+                              .RequestUri = New Uri(String.Format("{0}/accounts/{1}/balances", _apiUrl, accountNumber)),
+                              .Method = HttpMethod.Get
+                          }
+            request.Headers.Add("Authorization", String.Format("Bearer {0}", accessToken.access_token))
+
+            Dim response = Await client.SendAsync(request)
+            response.EnsureSuccessStatusCode()
+            Return JsonConvert.DeserializeObject(Of List(Of Account))(response.Content.ReadAsStringAsync.Result)
+        End Using
+    End Function
+
+    Async Function GetAccountsInfo(accessToken As AccessToken) As Task(Of List(Of AccountInfo))
+        Using client As New HttpClient
+            Dim request = New HttpRequestMessage With
+                          {
+                              .RequestUri = New Uri(String.Format("{0}/users/{1}/accounts", _apiUrl, accessToken.userid)),
+                              .Method = HttpMethod.Get
+                          }
+            request.Headers.Add("Authorization", String.Format("Bearer {0}", accessToken.access_token))
+
+            Dim response = Await client.SendAsync(request)
+            response.EnsureSuccessStatusCode()
+            Return JsonConvert.DeserializeObject(Of List(Of AccountInfo))(response.Content.ReadAsStringAsync.Result)
+        End Using
+    End Function
 
 End Class

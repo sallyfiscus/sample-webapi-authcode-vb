@@ -2,23 +2,23 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
-    <Setting Name="APIKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">your key goes here</Value>
-    </Setting>
-    <Setting Name="APISecret" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">your secret goes here</Value>
-    </Setting>
     <Setting Name="RedirectUri" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://www.tradestation.com</Value>
     </Setting>
     <Setting Name="SIMAPIBaseUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://sim.api.tradestation.com/v2</Value>
     </Setting>
-    <Setting Name="PRODAPIBaseUrl" Type="System.String" Scope="Application">
+    <Setting Name="LIVEAPIBaseUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://api.tradestation.com/v2</Value>
     </Setting>
     <Setting Name="Environment" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SIM</Value>
+    </Setting>
+    <Setting Name="APIKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">your key goes here</Value>
+    </Setting>
+    <Setting Name="APISecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">your secret goes here</Value>
     </Setting>
   </Settings>
 </SettingsFile>

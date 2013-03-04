@@ -5,19 +5,20 @@ This sample application uses VB.NET (this assumes Visual Studio 2012 and .NET 4.
 ## Configuration
 Modify the following fields in the App.config with your appropriate values:
 
+
     <applicationSettings>
       <SampleWebapiAuthCodeVB.MySettings>
+        <setting name="RedirectUri" serializeAs="String">
+          <value>your redirect URI goes here</value>
+        </setting>
+        <setting name="Environment" serializeAs="String">
+          <value>SIM</value> ' Can be "SIM" for simulated trading or "LIVE" for live trading
+        </setting>
         <setting name="APIKey" serializeAs="String">
           <value>your key goes here</value>
         </setting>
         <setting name="APISecret" serializeAs="String">
           <value>your secret goes here</value>
-        </setting>
-        <setting name="RedirectUri" serializeAs="String">
-          <value>your redirect URI goes here</value>
-        </setting>
-        <setting name="Environment" serializeAs="String">
-          <value>SIM</value> ' Can be "SIM" for simulated trading or "PROD" for live trading
         </setting>
       </SampleWebapiAuthCodeVB.MySettings>
     </applicationSettings>
